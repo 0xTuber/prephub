@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "course-builder"
+version = "0.1.0"
+description = "AI-powered certification exam preparation course generator"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "chromadb",
+    "google-genai",
+    "libgen-api-enhanced",
+    "mineru",
+    "pydantic",
+    "python-dotenv",
+    "requests",
+    "sentence-transformers",
+]
+
+[project.scripts]
+course-builder = "course_builder.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/course_builder"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

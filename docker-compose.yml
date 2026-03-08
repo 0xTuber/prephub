@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  course-builder:
+    build: .
+    image: course-builder:latest
+    container_name: course-builder
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      - ./data:/app/data
+    # Override entrypoint for interactive use
+    # docker-compose run course-builder generate --certification "NREMT EMT"
+
+  # Optional: vLLM server for local inference
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: vllm-server
+    runtime: nvidia  # Requires nvidia-docker
+    environment:
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/root/.cache/huggingface
+    command: >
+      --model Qwen/Qwen2.5-7B-Instruct
+      --port 8000
+      --tensor-parallel-size 1
+      --max-model-len 32768
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - gpu  # Only start with: docker-compose --profile gpu up
+
+  # ChromaDB server (optional, for shared vectorstore)
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./data/vectorstore:/chroma/chroma
+    profiles:
+      - server  # Only start with: docker-compose --profile server up

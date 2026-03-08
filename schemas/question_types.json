@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z",
+  "schemas": {
+    "multiple_choice": {
+      "fields": ["stem", "choices", "correct_label"],
+      "choice_count": 4,
+      "scoring": "all_or_nothing",
+      "description": "Single correct answer from four options"
+    },
+    "multiple_response": {
+      "fields": ["stem", "num_correct", "choices", "correct_labels"],
+      "min_choices": 5,
+      "scoring": "all_or_nothing_or_partial",
+      "description": "Multiple correct answers from five or more options"
+    },
+    "drag_drop": {
+      "fields": ["stem", "drag_items", "drop_zones"],
+      "scoring": "partial_credit",
+      "description": "Match items to correct drop zones"
+    },
+    "hotspot": {
+      "fields": ["stem", "image_url", "regions", "num_correct_regions"],
+      "scoring": "partial_credit",
+      "description": "Click on correct regions of an image"
+    },
+    "fill_blank": {
+      "fields": ["stem_with_blanks", "blanks"],
+      "scoring": "partial_credit",
+      "description": "Fill in missing words or phrases"
+    },
+    "ordering": {
+      "fields": ["stem", "items", "correct_order"],
+      "scoring": "all_or_nothing_or_partial",
+      "description": "Arrange items in correct sequence"
+    },
+    "simulation": {
+      "fields": ["stem", "environment_description", "initial_state", "tasks"],
+      "scoring": "partial_credit_per_task",
+      "description": "Performance-based tasks in simulated environment"
+    },
+    "case_study": {
+      "fields": ["scenario", "exhibits", "sub_questions"],
+      "scoring": "per_sub_question",
+      "description": "Long-form scenario with multiple sub-questions"
+    }
+  }
+}
