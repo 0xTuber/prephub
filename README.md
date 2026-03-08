@@ -5,11 +5,11 @@ AI-powered certification exam preparation course generator. Automatically create
 ## Screenshots
 
 ### Course Dashboard
-![Course Dashboard](docs/images/homepage.png)
+![Course Dashboard](dashboard.png)
 *Home page showing course grid with "Review Center" and "+ New Course" buttons*
 
 ### Learning Path
-![Learning Path](docs/images/learning-path.png)
+![Learning Path](courses.png)
 *Course detail page with interactive learning path and module progress*
 
 ## System Architecture
